@@ -11,7 +11,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-@AllArgsConstructor
+@AllArgsConstructor // Genera el constructor con todos los atributos
 public class CategoriaServiceImpl implements CategoriaService {
 
 // ------ Inyeccion por annotacion @Autowired
