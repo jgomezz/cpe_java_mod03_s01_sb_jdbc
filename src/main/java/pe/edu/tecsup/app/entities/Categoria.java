@@ -1,7 +1,9 @@
 package pe.edu.tecsup.app.entities;
 
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data
 public class Categoria {
 
