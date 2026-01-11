@@ -1,5 +1,6 @@
 package pe.edu.tecsup.app.services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Slf4j
 @SpringBootTest
 class CategoriaServiceTest {
 
@@ -21,7 +23,7 @@ class CategoriaServiceTest {
         List<Categoria> categorias = this.categoriaService.findAll();
 
         for (Categoria categoria : categorias) {
-            System.out.println(categoria);
+            log.info(categoria.toString());
         }
 
     }
