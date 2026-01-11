@@ -1,5 +1,6 @@
 package pe.edu.tecsup.app.services;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +11,23 @@ import java.util.List;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class CategoriaServiceImpl implements CategoriaService {
 
-    @Autowired
-    private CategoriaRepository repository;
+// ------ Inyeccion por annotacion @Autowired
+//    @Autowired
+//    private CategoriaRepository repository;
+// -------------------------------------------------------
+
+
+// ----- Inyeccion  por constructor
+    private final CategoriaRepository repository;
+
+//    public CategoriaServiceImpl(CategoriaRepository repository) {
+//        this.repository = repository;
+//    }
+// -------------------------------------------------------
+
 
     @Override
     public List<Categoria> findAll() {
