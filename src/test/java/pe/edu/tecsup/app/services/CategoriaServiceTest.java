@@ -26,5 +26,10 @@ class CategoriaServiceTest {
             log.info(categoria.toString());
         }
 
+        // Validaciones
+        assertNotNull(categorias);  // que la lista no sea nula
+        assertFalse(categorias.isEmpty()); // que la lista no esté vacía
+        //assertEquals(3, categorias.size());
+
     }
 }
