@@ -41,7 +41,8 @@ public class ProductoServiceImpl implements ProductoService{
 
     @Override
     public void save(Producto producto) throws Exception {
-
+        log.info("call save()");
+        this.repository.save(producto);
     }
 
     @Override

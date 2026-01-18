@@ -59,12 +59,12 @@ public class ProductoRepositoryImpl implements ProductoRepository{
                 """;
 
          List<Producto> productos
-                 = jdbcTemplate.query(sql, new ProductoRowMapper());
+                 = this.jdbcTemplate.query(sql, new ProductoRowMapper());
          log.info("productos: {}", productos);
 
          return productos;
     }
-                
+
     @Override
     public List<Producto> findByName(String nombre) throws Exception {
         log.info("findByName producto - repository");
@@ -84,7 +84,7 @@ public class ProductoRepositoryImpl implements ProductoRepository{
                 """;
         Object[] parameters = new Object[] {nombre}; // new
         List<Producto> productos
-                = jdbcTemplate.query(
+                = this.jdbcTemplate.query(
                                 sql,
                                 new ProductoRowMapper(),
                                 parameters
@@ -111,7 +111,7 @@ public class ProductoRepositoryImpl implements ProductoRepository{
                 """;
         Object[] parameter = new Object[] {id};
         Producto producto
-                = jdbcTemplate.queryForObject(
+                = this.jdbcTemplate.queryForObject(
                         sql,
                         new ProductoRowMapper(),
                         parameter
@@ -122,6 +122,29 @@ public class ProductoRepositoryImpl implements ProductoRepository{
 
     @Override
     public void save(Producto producto) throws Exception {
+
+        String sql =
+                """
+                    INSERT INTO productos (categorias_id, nombre,
+                    descripcion, precio, stock, estado,
+                    imagen_nombre, imagen_tipo,
+                    imagen_tamanio)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+               """;
+
+        this.jdbcTemplate.update(
+                sql,
+                producto.getCategorias_id(),
+                producto.getNombre(),
+                producto.getDescripcion(),
+                producto.getPrecio(),
+                producto.getStock(),
+                producto.getEstado(),
+                producto.getImagen_nombre(),
+                producto.getImagen_tipo(),
+                producto.getImagen_tamanio()
+        );
+
 
     }
 
