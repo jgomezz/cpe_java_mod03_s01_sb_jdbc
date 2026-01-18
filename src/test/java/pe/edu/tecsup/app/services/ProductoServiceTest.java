@@ -55,4 +55,25 @@ class ProductoServiceTest {
         }
     }
 
+    @Test
+    void findByName() {
+        // Datos de entrada
+        String NOMBRE_SEARCH = "Kingstone";
+        try {
+            var productos =
+                    this.productoService.findByName(NOMBRE_SEARCH);
+
+            for (var producto : productos) {
+                log.info(producto.toString());
+            }
+
+            // Validaciones
+            assertNotNull(productos);  // que la lista no sea nula
+            assertFalse(productos.isEmpty()); // que la lista no esté vacía
+            //assertEquals(2, productos.size());
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
 }

@@ -29,13 +29,14 @@ public class ProductoServiceImpl implements ProductoService{
 
     @Override
     public List<Producto> findByName(String nombre) throws Exception {
-        return List.of();
+        log.info("call findByName()");
+        return this.repository.findByName(nombre);
     }
 
     @Override
     public Producto findById(Long id) throws Exception {
         log.info("call findById()");
-        return repository.findById(id);
+        return this.repository.findById(id);
     }
 
     @Override
