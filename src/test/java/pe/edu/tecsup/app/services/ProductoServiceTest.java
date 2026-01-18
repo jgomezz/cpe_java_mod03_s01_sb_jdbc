@@ -35,5 +35,24 @@ class ProductoServiceTest {
 
     }
 
+    @Test
+    void findById() {
+
+        Long ID_PROD_SEARCH = 1L;
+        String EXPECTED_NOMBRE = "Intel Core I7";
+
+
+        try {
+            var producto = this.productoService.findById(ID_PROD_SEARCH);
+            log.info(producto.toString());
+
+            // Validaciones
+            assertNotNull(producto);  // que el producto no sea nulo
+            assertEquals(EXPECTED_NOMBRE, producto.getNombre());
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
 
 }

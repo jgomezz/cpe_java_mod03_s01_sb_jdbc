@@ -72,7 +72,28 @@ public class ProductoRepositoryImpl implements ProductoRepository{
 
     @Override
     public Producto findById(Long id) throws Exception {
-        return null;
+        log.info("findById producto - repository");
+        String sql =
+                """
+                    SELECT p.id, p.categorias_id, c.nombre AS
+                    categorias_nombre, p.nombre, p.estado,
+                    p.descripcion, p.precio, p.stock,
+                    p.imagen_nombre, p.imagen_tipo, p.imagen_tamanio,
+                    p.creado
+                    FROM productos p
+                    INNER JOIN categorias c ON c.id =
+                    p.categorias_id
+                    WHERE estado = 1 AND p.id = ?
+                """;
+        Object[] parameter = new Object[] {id};
+        Producto producto
+                = jdbcTemplate.queryForObject(
+                        sql,
+                        new ProductoRowMapper(),
+                        parameter
+                    ) ;
+        log.info("producto: {}", producto);
+        return producto;
     }
 
     @Override

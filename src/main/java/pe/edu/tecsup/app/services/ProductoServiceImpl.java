@@ -26,4 +26,30 @@ public class ProductoServiceImpl implements ProductoService{
         log.info("findAll productos");
         return this.repository.findAll();
     }
+
+    @Override
+    public List<Producto> findByName(String nombre) throws Exception {
+        return List.of();
+    }
+
+    @Override
+    public Producto findById(Long id) throws Exception {
+        log.info("call findById()");
+        return repository.findById(id);
+    }
+
+    @Override
+    public void save(Producto producto) throws Exception {
+
+    }
+
+    @Override
+    public void update(Long id, String nombreProducto) throws Exception {
+
+    }
+
+    @Override
+    public void deleteById(Long id) throws Exception {
+
+    }
 }
