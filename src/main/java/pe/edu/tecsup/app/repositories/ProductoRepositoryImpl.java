@@ -17,18 +17,18 @@ class ProductoRowMapper implements RowMapper<Producto> {
     @Override
     public Producto mapRow(java.sql.ResultSet rs, int rowNum) throws java.sql.SQLException {
         Producto producto =  Producto.builder()
-                                        .id(rs.getLong("id"))
-                                        .categorias_id(rs.getLong("categorias_id"))
-                                        .nombre(rs.getString("nombre"))
-                                        .descripcion(rs.getString("descripcion"))
-                                        .precio(rs.getDouble("precio"))
-                                        .stock(rs.getInt("stock"))
-                                        .imagen_nombre(rs.getString("imagen_nombre"))
-                                        .imagen_tipo(rs.getString("imagen_tipo"))
-                                        .imagen_tamanio(rs.getLong("imagen_tamanio"))
-                                        .estado(rs.getInt("estado"))
-                                        .creado(rs.getDate("creado"))
-                                        .build();
+                                .id(rs.getLong("id"))
+                                .categorias_id(rs.getLong("categorias_id"))
+                                .nombre(rs.getString("nombre"))
+                                .descripcion(rs.getString("descripcion"))
+                                .precio(rs.getDouble("precio"))
+                                .stock(rs.getInt("stock"))
+                                .imagen_nombre(rs.getString("imagen_nombre"))
+                                .imagen_tipo(rs.getString("imagen_tipo"))
+                                .imagen_tamanio(rs.getLong("imagen_tamanio"))
+                                .estado(rs.getInt("estado"))
+                                .creado(rs.getDate("creado"))
+                                .build();
         return producto;
     }
 }
@@ -43,9 +43,28 @@ public class ProductoRepositoryImpl implements ProductoRepository{
 
     @Override
     public List<Producto> findAll() throws Exception {
-        return List.of();
-    }
+        log.info("findAll productos - repository");
+        String sql =
+                """
+                    SELECT p.id, p.categorias_id, c.nombre AS
+                    categorias_nombre, p.nombre,
+                    p.descripcion, p.precio, p.stock,
+                    p.imagen_nombre, p.imagen_tipo,
+                    p.imagen_tamanio, p.creado, p.estado
+                    FROM productos p
+                    INNER JOIN categorias c ON c.id =
+                    p.categorias_id
+                    WHERE estado=1
+                    ORDER BY id
+                """;
 
+         List<Producto> productos
+                 = jdbcTemplate.query(sql, new ProductoRowMapper());
+         log.info("productos: {}", productos);
+
+         return productos;
+    }
+                
     @Override
     public List<Producto> findByName(String nombre) throws Exception {
         return List.of();

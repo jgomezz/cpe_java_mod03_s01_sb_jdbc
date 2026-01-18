@@ -3,7 +3,11 @@ package pe.edu.tecsup.app.services;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pe.edu.tecsup.app.entities.Categoria;
+import pe.edu.tecsup.app.entities.Producto;
 import pe.edu.tecsup.app.repositories.ProductoRepository;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -12,4 +16,14 @@ public class ProductoServiceImpl implements ProductoService{
 
     private final ProductoRepository repository;
 
+    /**
+     * Método para listar todos los productos
+     * @return Lista de productos
+     * @throws Exception
+     */
+    @Override
+    public List<Producto> findAll() throws Exception {
+        log.info("findAll productos");
+        return this.repository.findAll();
+    }
 }
