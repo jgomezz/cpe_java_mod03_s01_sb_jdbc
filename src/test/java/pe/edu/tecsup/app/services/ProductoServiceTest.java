@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pe.edu.tecsup.app.entities.Producto;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
@@ -107,4 +109,54 @@ class ProductoServiceTest {
             fail(e.getMessage());
         }
     }
+    @Test
+    void update() {
+        // Datos de entrada
+        Long ID_PROD_UPDATE = 12L;   // Asegúrate de que este ID exista en la base de datos
+        String NUEVO_NOMBRE = "iPhone 14 Pro Max";
+        try {
+            // Actualizar el nombre del producto
+            this.productoService.update(ID_PROD_UPDATE, NUEVO_NOMBRE);
+
+            // Recuperar el producto actualizado
+            var productoActualizado =
+                    this.productoService.findById(ID_PROD_UPDATE);
+
+            log.info(productoActualizado.toString());
+
+            // Validaciones
+            assertNotNull(productoActualizado);  // que el producto no sea nulo
+            assertEquals(NUEVO_NOMBRE, productoActualizado.getNombre());
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    void deleteById() {
+
+        try {
+
+            List<Producto> productos = this.productoService.findAll();
+            int totalAntes = productos.size();
+
+            if (productos.isEmpty())
+                return; // test pass
+
+            Producto ultimoProducto =
+                    productos.get(productos.size() - 1);
+
+            productoService.deleteById(ultimoProducto.getId());
+
+            productos = productoService.findAll();
+            int totalDespues = productos.size();
+
+            assertEquals(1, totalAntes - totalDespues);
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
 }

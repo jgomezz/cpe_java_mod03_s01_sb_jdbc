@@ -150,11 +150,22 @@ public class ProductoRepositoryImpl implements ProductoRepository{
 
     @Override
     public void update(Long id, String nombreProducto) throws Exception {
-
+        log.info("call update()");
+        String sql = """
+                        UPDATE productos 
+                        SET nombre = ? 
+                        WHERE id = ?;
+                    """;
+        this.jdbcTemplate.update(sql, nombreProducto, id);
     }
 
     @Override
     public void deleteById(Long id) throws Exception {
-
+        log.info("call deleteById()");
+        String sql = """
+                        DELETE FROM productos 
+                        WHERE id = ?
+                    """;
+        this.jdbcTemplate.update(sql, id);
     }
 }
